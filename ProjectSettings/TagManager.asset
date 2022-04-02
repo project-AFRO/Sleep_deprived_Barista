@@ -6,6 +6,7 @@ TagManager:
   tags:
   - dispenser
   - costumer
+  - bar
   layers:
   - Default
   - TransparentFX

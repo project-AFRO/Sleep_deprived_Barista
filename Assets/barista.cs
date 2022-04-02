@@ -81,7 +81,7 @@ public class barista : MonoBehaviour
         {
             wallet -= 5.0f;
             cupsDrank++;
-            currentWake = AddTillMaxWake();
+            //currentWake = AddTillMaxWake();
             Debug.Log(cupsDrank);
             Debug.Log(cupsDispensed);
         }
@@ -116,15 +116,17 @@ public class barista : MonoBehaviour
         if (other.tag == "dispenser")
         {
             canDispense = true;
-            
 
             Debug.Log("dispenser");
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        canDispense = false;
-        Debug.Log("noDispenser");
+        if (other.tag == "dispenser")
+        {
+            canDispense = false;
+            Debug.Log("noDispenser");
+        } 
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -138,12 +140,12 @@ public class barista : MonoBehaviour
         }
     }
 
-    private float AddTillMaxWake()
+    /*private float AddTillMaxWake()
     {
         float i = currentWake;
         while (i < maxWake) i += 5*Time.deltaTime;
         return i;
-    }
+    }*/
     private void WakeMetter() {
         if(currentWake > 0)
         currentWake -= Time.deltaTime * cupsDrank * cupsDrank;
