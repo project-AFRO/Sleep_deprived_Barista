@@ -20,22 +20,32 @@ public class barista : MonoBehaviour
     [SerializeField] private bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+
         baseSpeedX = 100;
         baseSpeedZ = 100;
-        isForcedSleeping = false;
-        wallet = 0;
-        cupsDrank = 0;
         speedFactor = 100;
-        maxWake = 10;
+
+        wallet = 0;
+
+        cupsDrank = 0;
+        cupsDispensed = 0;
+
+        
+        
         forwardmovement = 0;
         sideMovement = 0;
-        cupsDispensed = 0;
+        
         canDispense = false;
+
+        maxWake = 10;
+        isForcedSleeping = false;
+        isPlayerChoosenSleeping = false;
         isSleeping = false;
         choosenSleepFactor = 3;
     }
@@ -61,7 +71,7 @@ public class barista : MonoBehaviour
         }
         rb.velocity = new Vector3(forwardmovement, 0, sideMovement);
         
-        if (Input.GetKeyDown(KeyCode.F) && canDispense)
+        if (Input.GetKeyDown(KeyCode.F) && canDispense && cupsDispensed < 4)
         {
 
             cupsDispensed++;
@@ -71,13 +81,22 @@ public class barista : MonoBehaviour
         {
             wallet -= 5.0f;
             cupsDrank++;
-            cupsDispensed++;
             currentWake = AddTillMaxWake();
             Debug.Log(cupsDrank);
             Debug.Log(cupsDispensed);
         }
-        if(!isSleeping)
+        if (Input.GetKeyDown(KeyCode.E) && cupsDispensed > 0)
+        {
+            cupsDispensed--;
+            cupsDrank++;
+            wallet -= 5;
+            Debug.Log(cupsDrank);
+            Debug.Log(wallet);
+        }
+        /*
+        if (!isSleeping)
         WakeMetter();
+        */
         if (Input.GetKeyDown(KeyCode.Z) && !isSleeping)
         {
             isPlayerChoosenSleeping = true;
@@ -107,6 +126,18 @@ public class barista : MonoBehaviour
         canDispense = false;
         Debug.Log("noDispenser");
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "costumer")
+        {
+            cupsDispensed--;
+            wallet += 10;
+            Destroy(collision.gameObject);
+            Debug.Log(cupsDispensed);
+        }
+    }
+
     private float AddTillMaxWake()
     {
         float i = currentWake;
@@ -116,7 +147,7 @@ public class barista : MonoBehaviour
     private void WakeMetter() {
         if(currentWake > 0)
         currentWake -= Time.deltaTime * cupsDrank * cupsDrank;
-        Debug.Log("wakemeter" + currentWake);
+       // Debug.Log("wakemeter" + currentWake);
         
     }
 
