@@ -43,7 +43,8 @@ public class barista : MonoBehaviour
         
         canDispense = false;
 
-        maxWake = 10;
+        maxWake = 1000;
+        currentWake = 1000;
         isForcedSleeping = false;
         isPlayerChoosenSleeping = false;
         isSleeping = false;
