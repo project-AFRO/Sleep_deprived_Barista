@@ -29,7 +29,7 @@ public class barista : MonoBehaviour
 
         baseSpeedX = 100;
         baseSpeedZ = 100;
-        speedFactor = 100;
+        speedFactor = 10;
 
         wallet = 0;
 
@@ -94,10 +94,10 @@ public class barista : MonoBehaviour
             Debug.Log(cupsDrank);
             Debug.Log(wallet);
         }
-        /*
+        
         if (!isSleeping)
         WakeMetter();
-        */
+       
         if (Input.GetKeyDown(KeyCode.Z) && !isSleeping)
         {
             isPlayerChoosenSleeping = true;
@@ -109,6 +109,10 @@ public class barista : MonoBehaviour
         if (currentWake <= 0)
         {
             isForcedSleeping = true;
+            Sleep();
+        }
+        if (isSleeping)
+        {
             Sleep();
         }
     }
@@ -132,7 +136,7 @@ public class barista : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "costumer")
+        if(collision.gameObject.tag == "costumer" && cupsDispensed > 0)
         {
             cupsDispensed--;
             wallet += 10;
@@ -150,7 +154,7 @@ public class barista : MonoBehaviour
     private void WakeMetter() {
         if(currentWake > 0)
         currentWake -= Time.deltaTime * cupsDrank * cupsDrank;
-       // Debug.Log("wakemeter" + currentWake);
+       //Debug.Log("wakemeter " + currentWake);
         
     }
 
