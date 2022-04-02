@@ -7,7 +7,7 @@ public class barista : MonoBehaviour
     [SerializeField] private int baseSpeedZ;
     [SerializeField] private int baseSpeedX;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float maxWake;
+    [SerializeField] private float maxWakeLevel;
     private float forwardmovement;
     private float sideMovement;
     [SerializeField] private bool isForcedSleeping;
@@ -15,7 +15,7 @@ public class barista : MonoBehaviour
     [SerializeField] private int cupsDrank;
     [SerializeField] private int cupsDispensed;
     [SerializeField] private int speedFactor;
-    [SerializeField] private float currentWake;
+    [SerializeField] private float currentWakeLevel;
     [SerializeField] private bool canDispense;
     [SerializeField] private bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
@@ -43,8 +43,8 @@ public class barista : MonoBehaviour
         
         canDispense = false;
 
-        maxWake = 1000;
-        currentWake = 1000;
+        maxWakeLevel = 1000;
+        currentWakeLevel = 1000;
         isForcedSleeping = false;
         isPlayerChoosenSleeping = false;
         isSleeping = false;
@@ -106,7 +106,7 @@ public class barista : MonoBehaviour
         {
             isPlayerChoosenSleeping = false;
         }
-        if (currentWake <= 0)
+        if (currentWakeLevel <= 0)
         {
             isForcedSleeping = true;
             Sleep();
@@ -152,26 +152,26 @@ public class barista : MonoBehaviour
         return i;
     }*/
     private void WakeMetter() {
-        if(currentWake > 0)
-        currentWake -= Time.deltaTime * cupsDrank * cupsDrank;
+        if(currentWakeLevel > 0)
+        currentWakeLevel -= Time.deltaTime * cupsDrank * cupsDrank;
        //Debug.Log("wakemeter " + currentWake);
         
     }
 
     private void Sleep()
     {
-        if (currentWake < maxWake && isForcedSleeping)
+        if (currentWakeLevel < maxWakeLevel && isForcedSleeping)
         {
             isSleeping = true;
-            currentWake += Time.deltaTime / cupsDrank;
+            currentWakeLevel += Time.deltaTime / cupsDrank;
             cupsDrank -= (int)(Time.deltaTime);
-        }else if (currentWake < maxWake && isPlayerChoosenSleeping)
+        }else if (currentWakeLevel < maxWakeLevel && isPlayerChoosenSleeping)
         {
             isSleeping = true;
-            currentWake += choosenSleepFactor*Time.deltaTime / cupsDrank;
+            currentWakeLevel += choosenSleepFactor*Time.deltaTime / cupsDrank;
             cupsDrank -= (int)(choosenSleepFactor*Time.deltaTime);
         }
-        if (currentWake >= maxWake)
+        if (currentWakeLevel >= maxWakeLevel)
         {
             isSleeping = false;
             isForcedSleeping = false;
@@ -179,7 +179,7 @@ public class barista : MonoBehaviour
             cupsDrank = 0;
         }
 
-        Debug.Log(currentWake);
+        Debug.Log(currentWakeLevel);
         Debug.Log("sleeping? "+isSleeping);
     }
 }
