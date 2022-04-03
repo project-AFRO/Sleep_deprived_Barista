@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class barista : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 8f;
+    [SerializeField] float moveSpeed;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float maxWakeLevel;
     [SerializeField] private bool isForcedSleeping;
@@ -63,6 +63,8 @@ public class barista : MonoBehaviour
         isSleeping = false;
 
         choosenSleepFactor = 3;
+
+        moveSpeed = 2000f;
         
     }
 
@@ -232,7 +234,7 @@ public class barista : MonoBehaviour
             xValue = 0;
             zValue = 0;
         }
-        transform.Translate(zValue, 0f, -xValue);
+        rb.velocity = new Vector3(zValue, 0f, -xValue);
     }
 
     
@@ -310,9 +312,13 @@ public class barista : MonoBehaviour
 
     public float getMaxWakeLevel() { return maxWakeLevel; }
 
-    public coffeecups[] GetCoffeecupsInhand()
+    public byte GetCoffeecupsInhand(int x)
     {
-        return cupsInHand;
+        if (x == 0) { return cupsInHand[0].getChosentype(); }
+        else if (x == 1) { return cupsInHand[1].getChosentype(); }
+        else if (x == 2) { return cupsInHand[2].getChosentype(); }
+        else if (x == 3) { return cupsInHand[3].getChosentype(); }
+        else return 3;
     }
 }
 

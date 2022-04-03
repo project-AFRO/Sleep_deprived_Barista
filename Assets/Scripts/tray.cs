@@ -5,6 +5,7 @@ using UnityEngine;
 public class tray : MonoBehaviour
 {
     [SerializeField] private GameObject barista;
+    public barista baristaScript;
     [SerializeField] GameObject cup1;
     [SerializeField] GameObject cup2;
     [SerializeField] GameObject cup3;
@@ -12,31 +13,32 @@ public class tray : MonoBehaviour
   
     [SerializeField] private int localYOffset;
 
-    private coffeecups[] coffeeOnTray;
+    private coffeecups coffee1;
+    private coffeecups coffee2;
+    private coffeecups coffee3;
+    private coffeecups coffee4;
     // Start is called before the first frame update
     void Start()
     {
-        coffeeOnTray = new coffeecups[4];
-        coffeeOnTray = barista.GetComponent<barista>().GetCoffeecupsInhand();
 
-        Debug.Log(coffeeOnTray[0].getChosentype());
-        Debug.Log(coffeeOnTray[1].getChosentype());
-        Debug.Log(coffeeOnTray[2].getChosentype());
-        Debug.Log(coffeeOnTray[3].getChosentype());
+        coffee1.setChosentype(baristaScript.GetCoffeecupsInhand(0));
+        coffee2.setChosentype(baristaScript.GetCoffeecupsInhand(1));
+        coffee3.setChosentype(baristaScript.GetCoffeecupsInhand(2));
+        coffee4.setChosentype(baristaScript.GetCoffeecupsInhand(3));
 
-        cup1.GetComponent<coffeecups>().setChosentype(coffeeOnTray[0].getChosentype());
-        cup2.GetComponent<coffeecups>().setChosentype(coffeeOnTray[1].getChosentype());
-        cup3.GetComponent<coffeecups>().setChosentype(coffeeOnTray[2].getChosentype());
-        cup4.GetComponent<coffeecups>().setChosentype(coffeeOnTray[3].getChosentype());
+        cup1.GetComponent<coffeecups>().setChosentype(3);
+        cup2.GetComponent<coffeecups>().setChosentype(3);
+        cup3.GetComponent<coffeecups>().setChosentype(3);
+        cup4.GetComponent<coffeecups>().setChosentype(3);
     }
 
     // Update is called once per frame
     void Update()
     {
-        cup1.GetComponent<coffeecups>().setChosentype(coffeeOnTray[0].GetComponent<coffeecups>().getChosentype());
-        cup2.GetComponent<coffeecups>().setChosentype(coffeeOnTray[1].GetComponent<coffeecups>().getChosentype());
-        cup3.GetComponent<coffeecups>().setChosentype(coffeeOnTray[2].GetComponent<coffeecups>().getChosentype());
-        cup4.GetComponent<coffeecups>().setChosentype(coffeeOnTray[3].GetComponent<coffeecups>().getChosentype());
+        coffee1.setChosentype(baristaScript.GetCoffeecupsInhand(0));
+        coffee2.setChosentype(baristaScript.GetCoffeecupsInhand(1));
+        coffee3.setChosentype(baristaScript.GetCoffeecupsInhand(2));
+        coffee4.setChosentype(baristaScript.GetCoffeecupsInhand(3));
     }
     
     
