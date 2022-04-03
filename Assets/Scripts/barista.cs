@@ -17,6 +17,12 @@ public class barista : MonoBehaviour
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
 
+    private dispensers dispenser;
+
+    [SerializeField] private byte coffeeType;
+    private coffeecups[] cupsInHand;
+
+    [SerializeField] private byte trayCapacity;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +34,8 @@ public class barista : MonoBehaviour
         cupsDrank = 0;
         cupsDispensed = 0;
 
+        trayCapacity = 4;
+        cupsInHand = new coffeecups[trayCapacity] ;
 
         canDispense = false;
 
@@ -43,7 +51,7 @@ public class barista : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        if (Input.GetKeyDown(KeyCode.F) && canDispense && cupsDispensed < 4)
+        if (Input.GetKeyDown(KeyCode.F) && canDispense && cupsDispensed < trayCapacity)
         {
 
             cupsDispensed++;
@@ -51,6 +59,8 @@ public class barista : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.E) && canDispense)
         {
+            
+
             wallet -= 5.0f;
             cupsDrank++;
             //currentWake = AddTillMaxWake();
@@ -93,7 +103,8 @@ public class barista : MonoBehaviour
         if (other.tag == "dispenser")
         {
             canDispense = true;
-
+            dispenser = other.GetComponent<dispensers>();
+            coffeeType = dispenser.GetDispansertype();
             Debug.Log("dispenser");
         }
     }
@@ -126,7 +137,7 @@ public class barista : MonoBehaviour
     private void WakeMetter()
     {
         if (currentWakeLevel > 0)
-            currentWakeLevel -= Time.deltaTime * cupsDrank * cupsDrank;
+            currentWakeLevel -= Time.deltaTime * (cupsDrank+1) * (cupsDrank + 1);
         //Debug.Log("wakemeter " + currentWake);
 
     }
@@ -163,4 +174,6 @@ public class barista : MonoBehaviour
         float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
         transform.Translate(zValue, 0f, -xValue);
     }
+    public int getCupsDrank() { return cupsDrank; }
+    public float getCurrentWakeLevel() { return currentWakeLevel; }
 }
