@@ -17,11 +17,19 @@ public class barista : MonoBehaviour
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
 
+    [SerializeField] private GameObject doorSpawner;
+    [SerializeField] private doSpawnCostumer spawnCostumerScript;
+    [SerializeField] private WakemeterSliderControl wakeSliderUi;
+
     private dispensers dispenser;
 
     [SerializeField] private byte coffeeType;
     private coffeecups[] cupsInHand;
 
+    private float xValue;
+    private float zValue;
+
+    private float timeTime;
     [SerializeField] private byte trayCapacity;
 
     // Start is called before the first frame update
@@ -31,6 +39,8 @@ public class barista : MonoBehaviour
 
         wallet = 0;
 
+        spawnCostumerScript = doorSpawner.GetComponent<doSpawnCostumer>();
+
         cupsDrank = 0;
         cupsDispensed = 0;
 
@@ -39,23 +49,29 @@ public class barista : MonoBehaviour
 
         canDispense = false;
 
-        maxWakeLevel = 1000;
-        currentWakeLevel = 1000;
+        maxWakeLevel = 400;
+        currentWakeLevel = maxWakeLevel;
+        wakeSliderUi.maxWakeSliderValue();
+
         isForcedSleeping = false;
         isPlayerChoosenSleeping = false;
         isSleeping = false;
+
         choosenSleepFactor = 3;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        wakeSliderUi.sliderControl();
+        timeTime = Time.time;
         MovePlayer();
         if (Input.GetKeyDown(KeyCode.F) && canDispense && cupsDispensed < trayCapacity)
         {
 
             cupsDispensed++;
-            Debug.Log(cupsDispensed);
+           
         }
         else if (Input.GetKeyDown(KeyCode.E) && canDispense)
         {
@@ -63,20 +79,20 @@ public class barista : MonoBehaviour
 
             wallet -= 5.0f;
             cupsDrank++;
+            currentWakeLevel = maxWakeLevel;
             //currentWake = AddTillMaxWake();
-            Debug.Log(cupsDrank);
-            Debug.Log(cupsDispensed);
+           
         }
         if (Input.GetKeyDown(KeyCode.E) && cupsDispensed > 0)
         {
+            currentWakeLevel = maxWakeLevel;
             cupsDispensed--;
             cupsDrank++;
             wallet -= 5;
-            Debug.Log(cupsDrank);
-            Debug.Log(wallet);
+           
         }
 
-        if (!isSleeping)
+        if (!isSleeping && !isForcedSleeping)
             WakeMetter();
 
         if (Input.GetKeyDown(KeyCode.Z) && !isSleeping)
@@ -87,6 +103,7 @@ public class barista : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Z) && isPlayerChoosenSleeping && isSleeping)
         {
             isPlayerChoosenSleeping = false;
+            isSleeping = false;
         }
         if (currentWakeLevel <= 0)
         {
@@ -96,6 +113,11 @@ public class barista : MonoBehaviour
         if (isSleeping)
         {
             Sleep();
+        }
+
+        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2)
+        {
+            dropCups();
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -124,7 +146,7 @@ public class barista : MonoBehaviour
             cupsDispensed--;
             wallet += 10;
             Destroy(collision.gameObject);
-            Debug.Log(cupsDispensed);
+            spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers()-1);
         }
     }
 
@@ -137,8 +159,12 @@ public class barista : MonoBehaviour
     private void WakeMetter()
     {
         if (currentWakeLevel > 0)
-            currentWakeLevel -= Time.deltaTime * (cupsDrank+1) * (cupsDrank + 1);
-        //Debug.Log("wakemeter " + currentWake);
+            currentWakeLevel -= Time.deltaTime*2 * (cupsDrank * cupsDrank + 1);
+        if(currentWakeLevel < 0)
+        {
+            isForcedSleeping = true;
+        }
+        //Debug.Log("wakemeter: " + currentWakeLevel);
 
     }
 
@@ -147,33 +173,92 @@ public class barista : MonoBehaviour
         if (currentWakeLevel < maxWakeLevel && isForcedSleeping)
         {
             isSleeping = true;
-            currentWakeLevel += Time.deltaTime / cupsDrank;
-            cupsDrank -= (int)(Time.deltaTime);
+            currentWakeLevel += Time.deltaTime * 3 / (cupsDrank+1);
+            cupsDrankReduction();
         }
         else if (currentWakeLevel < maxWakeLevel && isPlayerChoosenSleeping)
         {
             isSleeping = true;
-            currentWakeLevel += choosenSleepFactor * Time.deltaTime / cupsDrank;
-            cupsDrank -= (int)(choosenSleepFactor * Time.deltaTime);
+            currentWakeLevel += choosenSleepFactor*3 * Time.deltaTime / (cupsDrank+1);
+            cupsDrankReduction(choosenSleepFactor);
         }
-        if (currentWakeLevel >= maxWakeLevel)
+        if(currentWakeLevel > 200 && isForcedSleeping)
+        {
+            isForcedSleeping = false;
+            isPlayerChoosenSleeping = true;
+        }
+        else if (currentWakeLevel >= maxWakeLevel)
         {
             isSleeping = false;
             isForcedSleeping = false;
             isPlayerChoosenSleeping = false;
-            cupsDrank = 0;
         }
 
-        Debug.Log(currentWakeLevel);
-        Debug.Log("sleeping? " + isSleeping);
+        //Debug.Log(currentWakeLevel);
+        //Debug.Log("sleeping? " + isSleeping);
     }
     void MovePlayer()
     {
         //multiply by negative 1 to move in opposite direction
-        float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        if (!isSleeping)
+        {
+            xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+            zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        }
+        else
+        {
+            xValue = 0;
+            zValue = 0;
+        }
         transform.Translate(zValue, 0f, -xValue);
+    }
+
+    
+    private void cupsDrankReduction()
+    {
+        if (cupsDrank > 0   )
+        {
+            if ((int)(Time.time) % 50 == 0)
+            {
+                cupsDrank--;
+                timeTime++;
+            }
+        }
+        else
+        {
+            cupsDrank = 0;
+           
+        }
+    }
+
+    private void cupsDrankReduction(float x)
+    {
+        
+        if (cupsDrank > 0)
+        {
+            if ((int)(Time.time) % 50 == 0)
+            {
+                cupsDrank -= (int)x;
+                timeTime++;
+            }
+        }
+            
+        else
+        {
+            cupsDrank = 0;
+            
+        }
+    }
+
+    public void dropCups()
+    {
+        wallet -= cupsDispensed*5;
+        cupsDispensed = 0;
     }
     public int getCupsDrank() { return cupsDrank; }
     public float getCurrentWakeLevel() { return currentWakeLevel; }
+
+    public float getMaxWakeLevel() { return maxWakeLevel; }
 }
+
+

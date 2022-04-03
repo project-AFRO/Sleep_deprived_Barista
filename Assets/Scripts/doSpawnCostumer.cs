@@ -9,16 +9,18 @@ public class doSpawnCostumer : MonoBehaviour
                      private barista baristaScript;
     [SerializeField] private float spawnRate;
     [SerializeField] private float spawnDelay;
-    [SerializeField]private float roundDelay;
-
+    [SerializeField] private float roundDelay;
+    [SerializeField] private static int numOfCostumers;
+    [SerializeField] private int roundCount;
     // Start is called before the first frame update
-    [System.Obsolete]
+   
     void Start()
     {
-        spawnDelay = 2.0f;
-        spawnRate = 1.0f;
+        numOfCostumers = 0;
+        spawnDelay = 1.5f;
+        spawnRate = 2.5f;
         roundDelay = 15.0f;
-
+        roundCount = 0;
         baristaScript = Barista.GetComponent<barista>();
 
         StartCoroutine(SpawnCustumerWithDelay());
@@ -29,6 +31,8 @@ public class doSpawnCostumer : MonoBehaviour
         // new position 
         Vector3 spawnPosition = new Vector3(transform.position.x, 1, transform.position.z);
         GameObject custumer = Instantiate(custumerPrefab, transform.position, transform.rotation) as GameObject;
+        numOfCostumers++;
+        roundCount++;
         Debug.Log("spawned");
     }
 
@@ -37,15 +41,28 @@ public class doSpawnCostumer : MonoBehaviour
     {
         while (true)
         {
-            for (int i = 0; i <= Random.RandomRange(1, baristaScript.getCupsDrank() + 1); i++)
+            if (numOfCostumers <= baristaScript.getCupsDrank() *roundCount* 3)
             {
-                yield return new WaitForSeconds(spawnDelay);
-                SpawnCustumer();
+                for (int i = 0; i <= Random.RandomRange(baristaScript.getCupsDrank()*roundCount, (baristaScript.getCupsDrank() + 1) *roundCount* spawnRate); i++)
+                {
+                    yield return new WaitForSeconds(spawnDelay);
+                    SpawnCustumer();
+                }
+                Debug.Log("spawn 'round' loop done");
+                yield return new WaitForSeconds(roundDelay);
+                Debug.Log("wait done");
             }
-            Debug.Log("spawn 'round' loop done");
-            yield return new WaitForSeconds(roundDelay);
-            Debug.Log("wait done");
+            else { yield return new WaitForSeconds(roundDelay); }
         }
        
+    }
+
+    public int getNumOfCostumers()
+    {
+        return numOfCostumers;
+    }
+    public void setNumOfCostumers(int x)
+    {
+        numOfCostumers = x;
     }
 }

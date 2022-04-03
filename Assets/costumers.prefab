@@ -116,6 +116,8 @@ MonoBehaviour:
   queue: {fileID: 0}
   speed: 1
   maxDistance: 0.1
+  doorSpawner: {fileID: 162273372619375419, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
+  spawnCostumer: {fileID: 0}
 --- !u!114 &74660442325606191
 MonoBehaviour:
   m_ObjectHideFlags: 0

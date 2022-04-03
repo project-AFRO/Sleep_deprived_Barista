@@ -10,9 +10,13 @@ public class moveToBarOrQueue : MonoBehaviour
     public float maxDistance = 0.1f;
     private Vector3 barLocation;
 
+    [SerializeField] private GameObject doorSpawner;
+    [SerializeField] private doSpawnCostumer spawnCostumer;
+
     private void Start()
     {
-       barLocation= bar.transform.position + new Vector3(0,0,-2);
+        spawnCostumer = doorSpawner.GetComponent<doSpawnCostumer>();
+       barLocation= bar.transform.position + new Vector3(spawnCostumer.getNumOfCostumers()/5,0,-2*spawnCostumer.getNumOfCostumers()%5 -2);
     }
     // Update is called once per frame
     void Update()
