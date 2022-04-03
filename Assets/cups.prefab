@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 6762135372519413163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.06, y: 1.91293, z: -0.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,10 +108,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6762135372519413163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c032389ba8bb0547b0f99f7a1f12a1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dc1e0ae7fda3dd4182ab208d10a96bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   latte: {fileID: 2100000, guid: b4c720091dc8b764da76467f1ed392fd, type: 2}
   black: {fileID: 2100000, guid: 05b3758cde96b8f42a61cd83c76c0e8a, type: 2}
   esspresso: {fileID: 2100000, guid: e9f223cd1b6317a43b66855e809e35ad, type: 2}
+  invis: {fileID: 2100000, guid: 147a6313ce832ef459276d43fcf2cf9a, type: 2}
   cupMesh: {fileID: 8076721400693722672}

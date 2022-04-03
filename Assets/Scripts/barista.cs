@@ -49,6 +49,7 @@ public class barista : MonoBehaviour
         for(int i = 0; i < trayCapacity; i++)
         {
             cupsInHand[i] = new coffeecups(4);
+            cupsInHand[i].setChosentype(4);
         }
 
         canDispense = false;
@@ -232,7 +233,7 @@ public class barista : MonoBehaviour
     {
         if (cupsDrank > 0   )
         {
-            if ((int)(Time.time) % 50 == 0)
+            if ((Time.time) % 15 == 0)
             {
                 cupsDrank--;
                 timeTime++;
@@ -250,7 +251,7 @@ public class barista : MonoBehaviour
         
         if (cupsDrank > 0)
         {
-            if ((int)(Time.time) % 50 == 0)
+            if ((Time.time) % 15 == 0)
             {
                 cupsDrank -= (int)x;
                 timeTime++;
@@ -299,6 +300,11 @@ public class barista : MonoBehaviour
     public float getCurrentWakeLevel() { return currentWakeLevel; }
 
     public float getMaxWakeLevel() { return maxWakeLevel; }
+
+    public coffeecups[] GetCoffeecupsInhand()
+    {
+        return cupsInHand;
+    }
 }
 
 

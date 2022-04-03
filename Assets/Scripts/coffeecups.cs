@@ -10,11 +10,13 @@ public class coffeecups : MonoBehaviour
     [SerializeField] private Material latte;
     [SerializeField] private Material black;
     [SerializeField] private Material esspresso;
+    [SerializeField] private Material invis;
     [SerializeField] private MeshRenderer cupMesh;
     private byte price;
+    
     public coffeecups(int x)
     {
-        setChosentype(x);
+        chosenType = (byte)x;
     }
     void Start()
     {
@@ -49,7 +51,7 @@ public class coffeecups : MonoBehaviour
         else
         {
             price = 0;
-            cupMesh.material = null;
+            cupMesh.material = invis;
         }
         
     }

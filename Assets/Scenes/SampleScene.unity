@@ -817,23 +817,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366036844}
   m_CullTransparentMesh: 1
---- !u!1 &1543181730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9114211854432784701, guid: a9c145e63ffb8414dbadf62fa5bbab3c, type: 3}
-  m_PrefabInstance: {fileID: 9114211853187531935}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1543181731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543181730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc3446f15a361b44bacd7e66f2f63fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1695742376
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1206,6 +1189,10 @@ PrefabInstance:
       propertyPath: wakeSliderUi
       value: 
       objectReference: {fileID: 825735389}
+    - target: {fileID: 5346205475073194031, guid: f475af424ae857c4ba5a8bda3c56ad3c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66a69243c80945a43a452f734c56db3c, type: 2}
     - target: {fileID: 7946198002746977568, guid: f475af424ae857c4ba5a8bda3c56ad3c, type: 3}
       propertyPath: m_RootOrder
       value: 6
