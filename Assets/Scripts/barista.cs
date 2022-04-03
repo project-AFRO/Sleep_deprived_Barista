@@ -48,8 +48,8 @@ public class barista : MonoBehaviour
         cupsInHand = new coffeecups[trayCapacity];
         for(int i = 0; i < trayCapacity; i++)
         {
-            cupsInHand[i] = new coffeecups(4);
-            cupsInHand[i].setChosentype(4);
+            cupsInHand[i] = new coffeecups(3);
+            cupsInHand[i].setChosentype(3);
         }
 
         canDispense = false;

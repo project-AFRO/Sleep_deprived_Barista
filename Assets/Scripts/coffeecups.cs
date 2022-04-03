@@ -5,7 +5,7 @@ using UnityEngine;
 public class coffeecups : MonoBehaviour
 {
     private string[] coffeeTypes;
-    private byte chosenType;
+    [SerializeField]private byte chosenType;
     private string coffeeTypeName;
     [SerializeField] private Material latte;
     [SerializeField] private Material black;
@@ -56,9 +56,9 @@ public class coffeecups : MonoBehaviour
         
     }
 
-    public void setChosentype(int x)
+    public void setChosentype(byte x)
     {
-        chosenType = (byte) x;
+        chosenType = x;
     }
     public byte getChosentype()
     {

@@ -7,11 +7,11 @@ public class tray : MonoBehaviour
     [SerializeField] private GameObject barista;
     [SerializeField] private barista baristaScript;
     [SerializeField] private GameObject cupPrefab;
-    [SerializeField] GameObject loc1;
-    [SerializeField] GameObject loc2;
-    [SerializeField] GameObject loc3;
-    [SerializeField] GameObject loc4;
-    GameObject[] loc;
+    [SerializeField] GameObject cup1;
+    [SerializeField] GameObject cup2;
+    [SerializeField] GameObject cup3;
+    [SerializeField] GameObject cup4;
+    GameObject[] cups;
      GameObject[] cupOfCoffee;
     [SerializeField] private int localYOffset;
 
@@ -21,44 +21,27 @@ public class tray : MonoBehaviour
     {
         baristaScript = barista.GetComponent<barista>();
         cupOfCoffee = new GameObject[4];
-        loc = new GameObject[4];
-        loc[1] = loc2;
-        loc[0] = loc1;
-        loc[2] = loc3;
-        loc[3] = loc4;
-        displayCupsOnTray();
-        coffeeOnTray = baristaScript.GetCoffeecupsInhand();
+        cups = new GameObject[4];
+        cups[1] = cup2;
+        cups[0] = cup1;
+        cups[2] = cup3;
+        cups[3] = cup4;
+        
+        coffeeOnTray = barista.GetComponent<barista>().GetCoffeecupsInhand();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transformCupsLocation();
-    }
-
-    public void transformCupsLocation()
-    {
-        for(int i =0; i < 4; i++)
-        {
-            cupOfCoffee[i].GetComponent<coffeecups>().transform.position = loc[i].transform.position;
-        }
         
+        
+        cup1.GetComponent<coffeecups>().setChosentype(coffeeOnTray[0].GetComponent<coffeecups>().getChosentype());
+        cup2.GetComponent<coffeecups>().setChosentype(coffeeOnTray[1].GetComponent<coffeecups>().getChosentype());
+        cup3.GetComponent<coffeecups>().setChosentype(coffeeOnTray[2].GetComponent<coffeecups>().getChosentype());
+        cup4.GetComponent<coffeecups>().setChosentype(coffeeOnTray[3].GetComponent<coffeecups>().getChosentype());
+
+
     }
-    public void displayCupsOnTray()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Debug.Log("cupShwon");
-            cupOfCoffee[i] = Instantiate(cupPrefab, loc[i].transform.position,Quaternion.EulerRotation(0,0,0)) ;
-            cupOfCoffee[i].GetComponent<coffeecups>().setChosentype(coffeeOnTray[i].getChosentype());
-        }
-    }
-    public void destroyCupsOnTray()
-    {
-        foreach (GameObject cup in cupOfCoffee)
-        {
-            Destroy(cup);
-        }
-    }
+    
     
 }
