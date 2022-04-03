@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7946198002746977568}
   - component: {fileID: 7946198002746977569}
   - component: {fileID: 7946198002746977570}
+  - component: {fileID: 3525536781337391007}
   - component: {fileID: 7946198002746977571}
-  - component: {fileID: 7946198002746977572}
   - component: {fileID: 7946198002746977573}
   m_Layer: 0
   m_Name: barista
@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.10392, y: 1.18, z: 6.4360623}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,6 +55,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -84,6 +86,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3525536781337391007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7946198002746977574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb74e4bfe0863314896f3fbeafbf5808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 8
+  rb: {fileID: 0}
+  maxWakeLevel: 0
+  isForcedSleeping: 0
+  wallet: 0
+  cupsDrank: 0
+  cupsDispensed: 0
+  currentWakeLevel: 0
+  canDispense: 0
+  isSleeping: 0
+  isPlayerChoosenSleeping: 0
+  choosenSleepFactor: 0
+  doorSpawner: {fileID: 162273372619375419, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
+  spawnCostumerScript: {fileID: 0}
+  coffeeType: 0
+  trayCapacity: 0
 --- !u!136 &7946198002746977571
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -98,32 +128,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7946198002746977572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7946198002746977574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf69d532c4ffbf144812fa2876613e25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeedZ: 1
-  baseSpeedX: 0
-  rb: {fileID: 0}
-  maxWake: 0
-  isForcedSleeping: 0
-  wallet: 0
-  cupsDrank: 0
-  cupsDispensed: 0
-  speedFactor: 0
-  currentWake: 0
-  canDispense: 0
-  isSleeping: 0
-  isPlayerChoosenSleeping: 0
-  choosenSleepFactor: 0
 --- !u!54 &7946198002746977573
 Rigidbody:
   m_ObjectHideFlags: 0

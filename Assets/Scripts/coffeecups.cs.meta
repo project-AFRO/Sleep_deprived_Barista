@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/coffeecups.cs.meta
 guid: 1dc1e0ae7fda3dd4182ab208d10a96bb
+=======
+guid: 1c032389ba8bb0547b0f99f7a1f12a1a
+>>>>>>> main:Assets/Scripts/coffee cups.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

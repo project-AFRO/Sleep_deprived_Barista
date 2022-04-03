@@ -10,20 +10,22 @@ public class dispensers : MonoBehaviour
     void Start()
     {
 
-        
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-     if (dispenserType == 0)
+        if (dispenserType == 0)
         {
             dispenserName = "latte coffee";
-        }else if(dispenserType == 1)
+        }
+        else if (dispenserType == 1)
         {
             dispenserName = "black coffee";
-        }else if(dispenserType == 2)
+        }
+        else if (dispenserType == 2)
         {
             dispenserName = "espresso coffee";
         }
