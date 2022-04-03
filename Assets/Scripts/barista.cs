@@ -69,6 +69,13 @@ public class barista : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            foreach(coffeecups cup in cupsInHand)
+            {
+                Debug.Log(cup.getChosentype());
+            }
+        }
         wakeSliderUi.sliderControl();
         timeTime = Time.time;
         MovePlayer();
@@ -131,7 +138,7 @@ public class barista : MonoBehaviour
             dispenser = other.GetComponent<dispensers>();
             coffeeType = dispenser.GetDispansertype();
             
-            Debug.Log("dispenser");
+            
         }
     }
     private void OnTriggerExit(Collider other)
@@ -139,7 +146,7 @@ public class barista : MonoBehaviour
         if (other.tag == "dispenser")
         {
             canDispense = false;
-            Debug.Log("noDispenser");
+            
         }
     }
 
@@ -153,7 +160,7 @@ public class barista : MonoBehaviour
                     cupsDispensed--;
                     Destroy(collision.gameObject);
                     wallet += coffee.getPrice();
-                    coffee.setChosentype(4);
+                    coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
                     sortHand();
                 }
@@ -278,6 +285,7 @@ public class barista : MonoBehaviour
         {
             if (cupsInHand[i].getChosentype() < previousCup.getChosentype())
             {
+                Debug.Log("moved");
                 temp = previousCup;
                 cupsInHand[i - 1] = cupsInHand[i];
                 cupsInHand[i] = temp;
@@ -292,7 +300,8 @@ public class barista : MonoBehaviour
 
     public void addCuptoHand()
     {
-        cupsInHand[cupsDispensed].setChosentype(coffeeType);
+       cupsInHand[cupsDispensed].setChosentype(coffeeType);
+        Debug.Log(cupsInHand[cupsDispensed].getChosentype());
         Debug.Log(cupsDispensed);
     }
 
