@@ -5,7 +5,7 @@ using UnityEngine;
 public class seat : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] bool occupied; 
+    public bool occupied; 
     void Start()
     {
         occupied = false;
