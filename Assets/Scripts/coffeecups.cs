@@ -14,10 +14,6 @@ public class coffeecups : MonoBehaviour
     [SerializeField] private MeshRenderer cupMesh;
     private byte price;
     
-    public coffeecups(int x)
-    {
-        chosenType = (byte)x;
-    }
     void Start()
     {
         chosenType = 3;
@@ -59,6 +55,7 @@ public class coffeecups : MonoBehaviour
     public void setChosentype(byte x)
     {
         chosenType = x;
+        setprice(x);
     }
     public byte getChosentype()
     {
@@ -67,5 +64,29 @@ public class coffeecups : MonoBehaviour
     public byte getPrice()
     {
         return price;
+    }
+    public void setprice(int x)
+    {
+        if (chosenType == 0)
+        {
+            
+            price = 10;
+
+        }
+        else if (chosenType == 1)
+        {
+            
+            price = 15;
+        }
+        else if (chosenType == 2)
+        {
+            
+            price = 5;
+        }
+        else
+        {
+            price = 0;
+            
+        }
     }
 }

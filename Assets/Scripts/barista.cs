@@ -13,9 +13,11 @@ public class barista : MonoBehaviour
     [SerializeField] private int cupsDispensed;
     [SerializeField] private float currentWakeLevel;
     [SerializeField] private bool canDispense;
-    [SerializeField] private bool isSleeping;
+    [SerializeField] public bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
+
+    [SerializeField] public bool gameOver;
 
     [SerializeField] private GameObject doorSpawner;
     [SerializeField] private doSpawnCostumer spawnCostumerScript;
@@ -24,7 +26,7 @@ public class barista : MonoBehaviour
     private dispensers dispenser;
 
     [SerializeField] private byte coffeeType;
-    private coffeecups[] cupsInHand;
+    public coffeecups[] cupsInHand;
     
     private float xValue;
     private float zValue;
@@ -35,6 +37,8 @@ public class barista : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameOver = false;
+        
         rb = gameObject.GetComponent<Rigidbody>();
 
         wallet = 0;
@@ -48,7 +52,7 @@ public class barista : MonoBehaviour
         cupsInHand = new coffeecups[trayCapacity];
         for(int i = 0; i < trayCapacity; i++)
         {
-            cupsInHand[i] = new coffeecups(3);
+            cupsInHand[i] = new coffeecups();
             cupsInHand[i].setChosentype(3);
         }
 
@@ -71,6 +75,9 @@ public class barista : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameOver) 
+            return;
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             foreach(coffeecups cup in cupsInHand)
@@ -83,9 +90,8 @@ public class barista : MonoBehaviour
         MovePlayer();
         if (Input.GetKeyDown(KeyCode.F) && canDispense && cupsDispensed < trayCapacity)
         {
-            addCuptoHand();
+            cupsInHand[cupsDispensed].setChosentype(coffeeType);
             cupsDispensed++;
-           
         }
         else if (Input.GetKeyDown(KeyCode.E) && canDispense)
         {
@@ -98,9 +104,9 @@ public class barista : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && cupsDispensed > 0)
         {
             currentWakeLevel = maxWakeLevel;
-            Destroy(cupsInHand[--cupsDispensed]);
+            cupsInHand[--cupsDispensed].setChosentype(3);
             cupsDrank++;
-            wallet -= 5;
+            wallet -= cupsInHand[cupsDispensed].getPrice()*2/4;
            
         }
 
@@ -127,7 +133,7 @@ public class barista : MonoBehaviour
             Sleep();
         }
 
-        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2)
+        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2 && cupsDispensed>0 && !isSleeping)
         {
             dropCups();
         }
@@ -161,6 +167,7 @@ public class barista : MonoBehaviour
                 { 
                     cupsDispensed--;
                     Destroy(collision.gameObject);
+                    coffee.setprice(coffee.getChosentype());
                     wallet += coffee.getPrice();
                     coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
@@ -242,9 +249,9 @@ public class barista : MonoBehaviour
     {
         if (cupsDrank > 0   )
         {
-            if ((Time.time) % 15 == 0)
+            if ((int)(Time.time) % 15 == 0)
             {
-                cupsDrank--;
+                cupsDrank-=(int)(timeTime*Time.deltaTime);
                 timeTime++;
             }
         }
@@ -260,9 +267,9 @@ public class barista : MonoBehaviour
         
         if (cupsDrank > 0)
         {
-            if ((Time.time) % 15 == 0)
+            if ((int)(Time.time) % 15 == 0)
             {
-                cupsDrank -= (int)x;
+                cupsDrank -= (int)(timeTime * Time.deltaTime*x);
                 timeTime++;
             }
         }
@@ -277,6 +284,10 @@ public class barista : MonoBehaviour
     {
         wallet -= cupsDispensed*5;
         cupsDispensed = 0;
+        foreach(coffeecups cup in cupsInHand)
+        {
+            cup.setChosentype(3);
+        }
     }
 
     private void sortHand()
@@ -287,11 +298,12 @@ public class barista : MonoBehaviour
         {
             if (cupsInHand[i].getChosentype() < previousCup.getChosentype())
             {
-                Debug.Log("moved");
+                Debug.Log("temp");
                 temp = previousCup;
                 cupsInHand[i - 1] = cupsInHand[i];
                 cupsInHand[i] = temp;
                 previousCup = cupsInHand[i];
+
             }
         }
         if (temp != null)
@@ -300,12 +312,6 @@ public class barista : MonoBehaviour
         }
     }
 
-    public void addCuptoHand()
-    {
-       cupsInHand[cupsDispensed].setChosentype(coffeeType);
-        Debug.Log(cupsInHand[cupsDispensed].getChosentype());
-        Debug.Log(cupsDispensed);
-    }
 
     public int getCupsDrank() { return cupsDrank; }
     public float getCurrentWakeLevel() { return currentWakeLevel; }
@@ -319,6 +325,10 @@ public class barista : MonoBehaviour
         else if (x == 2) { return cupsInHand[2].getChosentype(); }
         else if (x == 3) { return cupsInHand[3].getChosentype(); }
         else return 3;
+    }
+    public bool getSleepState()
+    {
+        return isSleeping;
     }
 }
 

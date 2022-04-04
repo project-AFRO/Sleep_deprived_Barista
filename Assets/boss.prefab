@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &162273372619375419
+--- !u!1 &8027176717421934487
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 162273372619375415}
-  - component: {fileID: 162273372619375414}
-  - component: {fileID: 162273372619375417}
-  - component: {fileID: 162273372619375416}
-  - component: {fileID: 7151247289189034264}
-  - component: {fileID: 1197365869560817434}
+  - component: {fileID: 4556340781817680349}
+  - component: {fileID: 3670703478879070299}
+  - component: {fileID: 4881979395114121080}
+  - component: {fileID: -3178603095960032922}
   m_Layer: 0
-  m_Name: door
+  m_Name: boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &162273372619375415
+--- !u!4 &4556340781817680349
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162273372619375419}
+  m_GameObject: {fileID: 8027176717421934487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.89, y: 2.47, z: -37.79}
-  m_LocalScale: {x: 4.788, y: 4.788, z: 0.04706269}
+  m_LocalPosition: {x: 4.51, y: 1.82, z: -0.98}
+  m_LocalScale: {x: 1.274, y: 3.5201895, z: 1.274}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &162273372619375414
+--- !u!33 &3670703478879070299
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162273372619375419}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &162273372619375417
+  m_GameObject: {fileID: 8027176717421934487}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4881979395114121080
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162273372619375419}
+  m_GameObject: {fileID: 8027176717421934487}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,51 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &162273372619375416
-BoxCollider:
+--- !u!136 &-3178603095960032922
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162273372619375419}
+  m_GameObject: {fileID: 8027176717421934487}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
+  m_Height: 0.9999999
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7151247289189034264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162273372619375419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ee4cf0f58c1c64ebadadfeb9763d45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  custumerPrefab: {fileID: 8798909371809015613, guid: 8746facd3689155469b2a4f5441361f1, type: 3}
-  cupPrefab: {fileID: 0}
-  Barista: {fileID: 7946198002746977574, guid: f475af424ae857c4ba5a8bda3c56ad3c, type: 3}
-  spawnRate: 1
-  spawnDelay: 1
-  roundDelay: 0
-  roundCount: 0
---- !u!114 &1197365869560817434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162273372619375419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce6a9773c8b441547a6dfadecedfb256, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roundScript: {fileID: 0}
-  bossPrefab: {fileID: 8027176717421934487, guid: 020eb68502c34d1439bb37044cea370d, type: 3}
-  bar: {fileID: 0}
-  door: {fileID: 162273372619375419}

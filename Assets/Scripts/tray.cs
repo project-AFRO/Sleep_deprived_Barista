@@ -5,41 +5,35 @@ using UnityEngine;
 public class tray : MonoBehaviour
 {
     [SerializeField] private GameObject barista;
-    public barista baristaScript;
     [SerializeField] GameObject cup1;
     [SerializeField] GameObject cup2;
     [SerializeField] GameObject cup3;
     [SerializeField] GameObject cup4;
+    GameObject[] cups;
+    int i;
   
     [SerializeField] private int localYOffset;
 
-    private coffeecups coffee1;
-    private coffeecups coffee2;
-    private coffeecups coffee3;
-    private coffeecups coffee4;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
-        coffee1.setChosentype(baristaScript.GetCoffeecupsInhand(0));
-        coffee2.setChosentype(baristaScript.GetCoffeecupsInhand(1));
-        coffee3.setChosentype(baristaScript.GetCoffeecupsInhand(2));
-        coffee4.setChosentype(baristaScript.GetCoffeecupsInhand(3));
-
-        cup1.GetComponent<coffeecups>().setChosentype(3);
-        cup2.GetComponent<coffeecups>().setChosentype(3);
-        cup3.GetComponent<coffeecups>().setChosentype(3);
-        cup4.GetComponent<coffeecups>().setChosentype(3);
+        i = 0;
+        cups = new GameObject[4];
+        cups[0] = cup1;
+        cups[1] = cup2;
+        cups[2] = cup3;
+        cups[3] = cup4;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        coffee1.setChosentype(baristaScript.GetCoffeecupsInhand(0));
-        coffee2.setChosentype(baristaScript.GetCoffeecupsInhand(1));
-        coffee3.setChosentype(baristaScript.GetCoffeecupsInhand(2));
-        coffee4.setChosentype(baristaScript.GetCoffeecupsInhand(3));
-    }
-    
-    
+        foreach (coffeecups cup in barista.GetComponent<barista>().cupsInHand) 
+        {
+            //if (cup != null) 
+            {
+                cups[i].GetComponent<coffeecups>().setChosentype(cup.getChosentype());
+                i++;
+            } 
+        }
+        i = 0;
+    }    
 }

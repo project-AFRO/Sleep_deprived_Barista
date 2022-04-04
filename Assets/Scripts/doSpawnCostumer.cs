@@ -62,6 +62,10 @@ public class doSpawnCostumer : MonoBehaviour
     {
         return numOfCostumers;
     }
+    public int getRound()
+    {
+        return roundCount;
+    }
     public void setNumOfCostumers(int x)
     {
         numOfCostumers = x;
