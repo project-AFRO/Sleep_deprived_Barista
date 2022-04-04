@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class slep : MonoBehaviour
+public class bossSpawnCondition : MonoBehaviour
 {
-    [SerializeField] barista baristaScript;
+    [SerializeField] doSpawnCostumer roundScript;
     private bool isSleeping;
     private int count;
     private int NumStrikes;
     private int maxStrikes;
+    private int roundCaught;
+    private int currentRound;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +19,14 @@ public class slep : MonoBehaviour
         count = 0;
         NumStrikes = 0;
         maxStrikes = 5;
+        roundCaught = 0;
+        currentRound = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        currentRound = roundScript.getRound();
         Counter();
     }
 
@@ -35,14 +40,18 @@ public class slep : MonoBehaviour
     {
         if(isSleeping == true)
         {
-            if(Random.RandomRange(0 , count/30) == 1 && NumStrikes<maxStrikes)
+            if(Random.Range(0 , count/30) == 1 && NumStrikes<maxStrikes && roundCaught != currentRound)
             {
                 NumStrikes++;
+                roundCaught = currentRound;
+
                 Debug.Log("you got caught sleeping");
-            }else if(NumStrikes >= maxStrikes)
+            }
+            else if(NumStrikes >= maxStrikes)
             {
                 Debug.Log("you lost");
             }
+            
         }
     }
 }
