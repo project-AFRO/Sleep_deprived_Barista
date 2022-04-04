@@ -12,14 +12,21 @@ public class endgame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private FileStream highscoreRead;
     [SerializeField] private FileStream highscoreWrite;
+
+    [SerializeField]
+    private int scr;
+
+
+
     StreamReader sr;
     StreamWriter sw;
     bool isNew;
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
+        score = barista.GetComponent<barista>().playerscore;
+        HighscoreRead();
         isNew = false;
 
     }
@@ -27,8 +34,9 @@ public class endgame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = "Game Over \n highscore:- \t latest score:- \n Time spent: \t" +PlayerHighscore.timeSpent+"\t"+score.timeSpent+"\n"+ "costumers served:\t"+ PlayerHighscore.costumersServed
-            +"\t";
+        
+        scr = (int)((score.timeSpent + score.costumersServed) / score.wallet);
+        scoreText.text = "Game Over";
     }
 
     public void HighscoreRead()
@@ -43,6 +51,7 @@ public class endgame : MonoBehaviour
            PlayerHighscore.costumersNotServed = int.Parse(sr.ReadLine());
            PlayerHighscore.wallet = float.Parse(sr.ReadLine());
         }
+        
         sr.Close();
     }
     public void HighscoreWrite()

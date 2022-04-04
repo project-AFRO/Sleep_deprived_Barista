@@ -16,7 +16,7 @@ public class barista : MonoBehaviour
     [SerializeField] public bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
-    [SerializeField] private Score playerscore;
+    [SerializeField] public Score playerscore;
 
     [SerializeField] private int costumersServed;
 
@@ -70,6 +70,8 @@ public class barista : MonoBehaviour
         costumersServed = 0;
 
         moveSpeed = 2000f;
+
+        playerscore = new Score();
         
     }
 
@@ -135,6 +137,12 @@ public class barista : MonoBehaviour
         {
             dropCups();
         }
+
+
+        playerscore.wallet = wallet;
+        playerscore.timeSpent = timeTime;
+        playerscore.costumersServed = costumersServed;
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -147,6 +155,7 @@ public class barista : MonoBehaviour
             
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "dispenser")

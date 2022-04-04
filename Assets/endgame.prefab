@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6889843054585329500}
   - component: {fileID: 6889843054585329501}
   - component: {fileID: 6889843054585329490}
-  - component: {fileID: 1298149121084162429}
   m_Layer: 5
   m_Name: endgame
   m_TagString: Untagged
@@ -102,21 +101,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1298149121084162429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6889843054585329491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40df2c1bcbdde7d41826b8f51046b8b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: {fileID: 0}
-  PlayerHighscore: {fileID: 0}
-  scoreText: {fileID: 6889843054878127867}
 --- !u!1 &6889843054753853254
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,8 +271,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -338,6 +322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6889843055851025088}
+  - component: {fileID: 7471259808068080222}
   m_Layer: 0
   m_Name: info
   m_TagString: Untagged
@@ -361,3 +346,19 @@ Transform:
   m_Father: {fileID: 6889843054585329503}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7471259808068080222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6889843055851025089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40df2c1bcbdde7d41826b8f51046b8b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barista: {fileID: 7946198002746977574, guid: f475af424ae857c4ba5a8bda3c56ad3c, type: 3}
+  score: {fileID: 0}
+  PlayerHighscore: {fileID: 0}
+  scoreText: {fileID: 6889843054878127867}
