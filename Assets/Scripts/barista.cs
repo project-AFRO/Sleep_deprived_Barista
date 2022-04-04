@@ -126,7 +126,7 @@ public class barista : MonoBehaviour
             Sleep();
         }
 
-        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2 && cupsDispensed>0 && !isSleeping)
+        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 8 && cupsDispensed>0 && !isSleeping)
         {
             dropCups();
         }
