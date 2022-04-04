@@ -24,8 +24,4 @@ public class peitience : MonoBehaviour
         ispeitient = false;
     }
     
-    public bool becameImpatient()
-    {
-        return ispeitient;
-    }
 }

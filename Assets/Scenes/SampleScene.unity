@@ -1074,7 +1074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6721359391247339266, guid: 6bc0445b729fccf4ab78c209a74e9e50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.137859
+      value: -6.78
       objectReference: {fileID: 0}
     - target: {fileID: 6721359391247339266, guid: 6bc0445b729fccf4ab78c209a74e9e50, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1124,6 +1124,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7946198002746977574, guid: f475af424ae857c4ba5a8bda3c56ad3c, type: 3}
   m_PrefabInstance: {fileID: 7946198003886281199}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1277803728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277803721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe31c72cb02c62418969104c2d1a791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barista: {fileID: 1277803721}
+  max_strikes: 3
+  strikes: 0
 --- !u!1001 &1361030904
 PrefabInstance:
   m_ObjectHideFlags: 0

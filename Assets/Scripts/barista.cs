@@ -20,6 +20,8 @@ public class barista : MonoBehaviour
 
     [SerializeField] private int costumersServed;
 
+    [SerializeField] public bool gameOver;
+
     [SerializeField] private GameObject doorSpawner;
     [SerializeField] private doSpawnCostumer spawnCostumerScript;
     [SerializeField] private WakemeterSliderControl wakeSliderUi;
@@ -38,6 +40,8 @@ public class barista : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameOver = false;
+        
         rb = gameObject.GetComponent<Rigidbody>();
 
         wallet = 0;
@@ -78,6 +82,9 @@ public class barista : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameOver) 
+            return;
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             foreach(coffeecups cup in cupsInHand)
@@ -338,7 +345,6 @@ public class barista : MonoBehaviour
     {
         return isSleeping;
     }
-
     public Score GetPlayerScore()
     {
         playerscore.wallet = wallet;
