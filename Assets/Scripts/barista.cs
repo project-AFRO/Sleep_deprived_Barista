@@ -18,6 +18,8 @@ public class barista : MonoBehaviour
     [SerializeField] private int choosenSleepFactor;
     [SerializeField] private Score playerscore;
 
+    [SerializeField] private int costumersServed;
+
     [SerializeField] private GameObject doorSpawner;
     [SerializeField] private doSpawnCostumer spawnCostumerScript;
     [SerializeField] private WakemeterSliderControl wakeSliderUi;
@@ -64,6 +66,8 @@ public class barista : MonoBehaviour
         isSleeping = false;
 
         choosenSleepFactor = 3;
+
+        costumersServed = 0;
 
         moveSpeed = 2000f;
         
@@ -166,6 +170,7 @@ public class barista : MonoBehaviour
                     coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
                     sortHand();
+                    costumersServed++;
                 }
                 
                 
@@ -328,6 +333,8 @@ public class barista : MonoBehaviour
     public Score GetPlayerScore()
     {
         playerscore.wallet = wallet;
+        playerscore.timeSpent = timeTime;
+        playerscore.costumersServed = costumersServed;
         return playerscore;
     }
     public float getWallet()
