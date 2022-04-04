@@ -5,6 +5,7 @@ using UnityEngine;
 public class bossSpawnCondition : MonoBehaviour
 {
     [SerializeField] doSpawnCostumer roundScript;
+    [SerializeField] GameObject bossPrefab;
     private bool isSleeping;
     private int count;
     private int NumStrikes;
