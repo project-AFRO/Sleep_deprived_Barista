@@ -13,7 +13,7 @@ public class barista : MonoBehaviour
     [SerializeField] private int cupsDispensed;
     [SerializeField] private float currentWakeLevel;
     [SerializeField] private bool canDispense;
-    [SerializeField] private bool isSleeping;
+    [SerializeField] public bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
 
@@ -24,7 +24,7 @@ public class barista : MonoBehaviour
     private dispensers dispenser;
 
     [SerializeField] private byte coffeeType;
-    private coffeecups[] cupsInHand;
+    public coffeecups[] cupsInHand;
     
     private float xValue;
     private float zValue;
@@ -277,6 +277,10 @@ public class barista : MonoBehaviour
     {
         wallet -= cupsDispensed*5;
         cupsDispensed = 0;
+        foreach(coffeecups cup in cupsInHand)
+        {
+            cup.setChosentype(3);
+        }
     }
 
     private void sortHand()
@@ -319,6 +323,10 @@ public class barista : MonoBehaviour
         else if (x == 2) { return cupsInHand[2].getChosentype(); }
         else if (x == 3) { return cupsInHand[3].getChosentype(); }
         else return 3;
+    }
+    public bool getSleepState()
+    {
+        return isSleeping;
     }
 }
 
