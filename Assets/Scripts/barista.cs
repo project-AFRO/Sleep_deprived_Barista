@@ -327,6 +327,7 @@ public class barista : MonoBehaviour
 
     public Score GetPlayerScore()
     {
+        playerscore.wallet = wallet;
         return playerscore;
     }
     public float getWallet()
