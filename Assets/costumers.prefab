@@ -33,6 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.255349, y: 1.13, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4958408807602502520}
   m_Father: {fileID: 0}
@@ -114,18 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3a8a50b5934bd42a81dc5636f4b486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seats:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  bar: {fileID: 54009507575370778, guid: 891d265692f62f347af1d5c4a343fbff, type: 3}
-  queue: {fileID: 0}
   speed: 1
-  maxDistance: 0.1
-  doorSpawner: {fileID: 162273372619375419, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
-  spawnCostumer: {fileID: 7151247289189034264, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
 --- !u!114 &74660442325606191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f33bde7b6de5db41a424d9cce17adaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time_to_leave: 30
+  costumerScript: {fileID: 0}
+  door: {fileID: 162273372619375419, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
 --- !u!1001 &398126063190829530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,13 +216,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5adeecb2290489947b7db9e6f19024d6, type: 3}
---- !u!1 &6364012612569529457 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6762135372519413163, guid: 5adeecb2290489947b7db9e6f19024d6, type: 3}
-  m_PrefabInstance: {fileID: 398126063190829530}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4958408807602502520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4704470513139896994, guid: 5adeecb2290489947b7db9e6f19024d6, type: 3}
+  m_PrefabInstance: {fileID: 398126063190829530}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6364012612569529457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6762135372519413163, guid: 5adeecb2290489947b7db9e6f19024d6, type: 3}
   m_PrefabInstance: {fileID: 398126063190829530}
   m_PrefabAsset: {fileID: 0}

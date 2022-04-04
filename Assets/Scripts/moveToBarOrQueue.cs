@@ -44,7 +44,7 @@ public class moveToBarOrQueue : MonoBehaviour
         //barLocation= bar.transform.position + new Vector3(spawnCostumer.getNumOfCostumers()/5,0,-2*spawnCostumer.getNumOfCostumers()%5 -2);
 
         //assignSeat();
-        newPosition = new Vector3(Random.Range(-7.0f, 15.0f), 0.0f, Random.Range(-20.0f, 1.45f));
+        newPosition = new Vector3(Random.Range(-90.0f, -47.0f), 0.0f, Random.Range(-29.0f, 1.45f));
     }
     
     // Update is called once per frame

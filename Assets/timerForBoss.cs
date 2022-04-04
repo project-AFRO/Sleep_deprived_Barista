@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class timerForBoss : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class timerForBoss : MonoBehaviour
         if (strikes >= max_strikes)
         {
             barista.GetComponent<barista>().gameOver = true;
+            SceneManager.LoadScene(2);
         }
     }
 }
