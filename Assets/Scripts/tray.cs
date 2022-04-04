@@ -9,16 +9,31 @@ public class tray : MonoBehaviour
     [SerializeField] GameObject cup2;
     [SerializeField] GameObject cup3;
     [SerializeField] GameObject cup4;
+    GameObject[] cups;
+    int i;
   
     [SerializeField] private int localYOffset;
-    // Update is called once per frame
+
+    private void Start()
+    {
+        i = 0;
+        cups = new GameObject[4];
+        cups[0] = cup1;
+        cups[1] = cup2;
+        cups[2] = cup3;
+        cups[3] = cup4;
+    }
+
     void Update()
     {
-        cup1.GetComponent<coffeecups>().setChosentype(barista.GetComponent<barista>().cupsInHand[0].getChosentype());
-        cup2.GetComponent<coffeecups>().setChosentype(barista.GetComponent<barista>().cupsInHand[1].getChosentype());
-        cup3.GetComponent<coffeecups>().setChosentype(barista.GetComponent<barista>().cupsInHand[2].getChosentype());
-        cup4.GetComponent<coffeecups>().setChosentype(barista.GetComponent<barista>().cupsInHand[3].getChosentype());
-    }
-    
-    
+        foreach (coffeecups cup in barista.GetComponent<barista>().cupsInHand) 
+        {
+            //if (cup != null) 
+            {
+                cups[i].GetComponent<coffeecups>().setChosentype(cup.getChosentype());
+                i++;
+            } 
+        }
+        i = 0;
+    }    
 }

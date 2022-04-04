@@ -83,9 +83,8 @@ public class barista : MonoBehaviour
         MovePlayer();
         if (Input.GetKeyDown(KeyCode.F) && canDispense && cupsDispensed < trayCapacity)
         {
-            addCuptoHand();
+            cupsInHand[cupsDispensed].setChosentype(coffeeType);
             cupsDispensed++;
-           
         }
         else if (Input.GetKeyDown(KeyCode.E) && canDispense)
         {
@@ -100,7 +99,7 @@ public class barista : MonoBehaviour
             currentWakeLevel = maxWakeLevel;
             cupsInHand[--cupsDispensed].setChosentype(3);
             cupsDrank++;
-            wallet -= 5;
+            wallet -= cupsInHand[cupsDispensed].getPrice()*2/4;
            
         }
 
@@ -127,7 +126,7 @@ public class barista : MonoBehaviour
             Sleep();
         }
 
-        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2 && cupsDispensed>0)
+        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2 && cupsDispensed>0 && !isSleeping)
         {
             dropCups();
         }
@@ -161,6 +160,7 @@ public class barista : MonoBehaviour
                 { 
                     cupsDispensed--;
                     Destroy(collision.gameObject);
+                    coffee.setprice(coffee.getChosentype());
                     wallet += coffee.getPrice();
                     coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
@@ -244,7 +244,7 @@ public class barista : MonoBehaviour
         {
             if ((int)(Time.time) % 15 == 0)
             {
-                cupsDrank--;
+                cupsDrank-=(int)(timeTime*Time.deltaTime);
                 timeTime++;
             }
         }
@@ -262,7 +262,7 @@ public class barista : MonoBehaviour
         {
             if ((int)(Time.time) % 15 == 0)
             {
-                cupsDrank -= (int)x;
+                cupsDrank -= (int)(timeTime * Time.deltaTime*x);
                 timeTime++;
             }
         }
@@ -291,11 +291,12 @@ public class barista : MonoBehaviour
         {
             if (cupsInHand[i].getChosentype() < previousCup.getChosentype())
             {
-                Debug.Log("moved");
+                Debug.Log("temp");
                 temp = previousCup;
                 cupsInHand[i - 1] = cupsInHand[i];
                 cupsInHand[i] = temp;
                 previousCup = cupsInHand[i];
+
             }
         }
         if (temp != null)
@@ -304,12 +305,6 @@ public class barista : MonoBehaviour
         }
     }
 
-    public void addCuptoHand()
-    {
-       cupsInHand[cupsDispensed].setChosentype(coffeeType);
-        Debug.Log(cupsInHand[cupsDispensed].getChosentype());
-        Debug.Log(cupsDispensed);
-    }
 
     public int getCupsDrank() { return cupsDrank; }
     public float getCurrentWakeLevel() { return currentWakeLevel; }

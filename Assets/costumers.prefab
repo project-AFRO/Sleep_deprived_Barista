@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8798909371809015614}
   - component: {fileID: 1461231352965513253}
   - component: {fileID: 74660442325606191}
+  - component: {fileID: 7399209802324526708}
   m_Layer: 0
   m_Name: costumers
   m_TagString: costumer
@@ -56,6 +57,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -113,14 +115,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seats:
-  - {fileID: 8599455176694594671, guid: 6bc0445b729fccf4ab78c209a74e9e50, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   bar: {fileID: 54009507575370778, guid: 891d265692f62f347af1d5c4a343fbff, type: 3}
   queue: {fileID: 0}
   speed: 1
   maxDistance: 0.1
   doorSpawner: {fileID: 162273372619375419, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
-  spawnCostumer: {fileID: 0}
+  spawnCostumer: {fileID: 7151247289189034264, guid: 1e28771bc94a5da4698e3574aa9b397d, type: 3}
 --- !u!114 &74660442325606191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +140,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coffeeTypeRequested: 0
   coffeecup: {fileID: 6364012612569529457}
+--- !u!114 &7399209802324526708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8798909371809015613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0f1facf0842144c8c3d18b9a5a10f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costumerPeitience: 0
+  ispeitient: 0
 --- !u!1001 &398126063190829530
 PrefabInstance:
   m_ObjectHideFlags: 0

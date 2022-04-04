@@ -20,7 +20,7 @@ public class bossSpawnCondition : MonoBehaviour
     [SerializeField] bool isLeaving;
     [SerializeField] bool isGamelost;
     GameObject boss;
-
+    
     // Start is called before the first frame update
     void Start()
     {
