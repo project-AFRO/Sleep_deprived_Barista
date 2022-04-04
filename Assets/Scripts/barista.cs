@@ -16,6 +16,7 @@ public class barista : MonoBehaviour
     [SerializeField] public bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
+    [SerializeField] private Score playerscore;
 
     [SerializeField] private GameObject doorSpawner;
     [SerializeField] private doSpawnCostumer spawnCostumerScript;
@@ -322,6 +323,15 @@ public class barista : MonoBehaviour
     public bool getSleepState()
     {
         return isSleeping;
+    }
+
+    public Score GetPlayerScore()
+    {
+        return playerscore;
+    }
+    public float getWallet()
+    {
+        return wallet;
     }
 }
 
