@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 66a69243c80945a43a452f734c56db3c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,8 +116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barista: {fileID: 7946198002746977574, guid: f475af424ae857c4ba5a8bda3c56ad3c, type: 3}
-  baristaScript: {fileID: 0}
-  cupPrefab: {fileID: 6762135372519413163, guid: 5adeecb2290489947b7db9e6f19024d6, type: 3}
   cup1: {fileID: 4281697794533419681}
   cup2: {fileID: 4468506491689154004}
   cup3: {fileID: 5580009927781582083}

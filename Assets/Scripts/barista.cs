@@ -16,6 +16,9 @@ public class barista : MonoBehaviour
     [SerializeField] public bool isSleeping;
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
+    [SerializeField] public Score playerscore;
+
+    [SerializeField] private int costumersServed;
 
     [SerializeField] public bool gameOver;
 
@@ -68,7 +71,11 @@ public class barista : MonoBehaviour
 
         choosenSleepFactor = 3;
 
+        costumersServed = 0;
+
         moveSpeed = 2000f;
+
+        playerscore = new Score();
         
     }
 
@@ -133,10 +140,16 @@ public class barista : MonoBehaviour
             Sleep();
         }
 
-        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2 && cupsDispensed>0 && !isSleeping)
+        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 8 && cupsDispensed>0 && !isSleeping)
         {
             dropCups();
         }
+
+
+        playerscore.wallet = wallet;
+        playerscore.timeSpent = timeTime;
+        playerscore.costumersServed = costumersServed;
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -149,6 +162,7 @@ public class barista : MonoBehaviour
             
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "dispenser")
@@ -172,6 +186,7 @@ public class barista : MonoBehaviour
                     coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
                     sortHand();
+                    costumersServed++;
                 }
                 
                 
@@ -329,6 +344,17 @@ public class barista : MonoBehaviour
     public bool getSleepState()
     {
         return isSleeping;
+    }
+    public Score GetPlayerScore()
+    {
+        playerscore.wallet = wallet;
+        playerscore.timeSpent = timeTime;
+        playerscore.costumersServed = costumersServed;
+        return playerscore;
+    }
+    public float getWallet()
+    {
+        return wallet;
     }
 }
 

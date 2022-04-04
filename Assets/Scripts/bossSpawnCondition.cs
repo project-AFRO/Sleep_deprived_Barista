@@ -20,7 +20,7 @@ public class bossSpawnCondition : MonoBehaviour
     [SerializeField] bool isLeaving;
     [SerializeField] bool isGamelost;
     GameObject boss;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,9 @@ public class bossSpawnCondition : MonoBehaviour
         isBossIntiated = false;
         isGamelost = false;
 
+
         StartCoroutine(Counter());
+
 
         count = 0;
         NumStrikes = 0;
@@ -43,6 +45,7 @@ public class bossSpawnCondition : MonoBehaviour
     {
         
         isSleeping = barista.GetComponent<barista>().isSleeping;
+
         currentRound = roundScript.getRound();
         Counter();
     }
@@ -58,11 +61,13 @@ public class bossSpawnCondition : MonoBehaviour
         if(isSleeping == true)
         {
             if( NumStrikes<maxStrikes && roundCaught != currentRound)
+
             {
                 if (!isBossIntiated)
                 {
                     boss = Instantiate(bossPrefab, transform.position + new Vector3(1, 0, 1), transform.rotation); 
                     isBossIntiated = true;
+
                 }
                 else
                 {
@@ -94,7 +99,7 @@ public class bossSpawnCondition : MonoBehaviour
             {
                 Debug.Log("you lost");
             }
-            
+
         }
     }
 }
