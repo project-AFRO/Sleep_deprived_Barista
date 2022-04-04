@@ -18,11 +18,11 @@ public class WakemeterSliderControl : MonoBehaviour
 
     public void maxWakeSliderValue()
     {
-        wake.maxValue = baristaScript.getMaxWakeLevel();
+        wake.maxValue = barista.GetComponent<barista>().getMaxWakeLevel();
         sliderControl();
     }
     public void sliderControl()
     {
-        wake.value = baristaScript.getCurrentWakeLevel();
+        wake.value = barista.GetComponent<barista>().getCurrentWakeLevel();
     }
 }

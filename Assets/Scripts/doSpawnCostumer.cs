@@ -5,6 +5,7 @@ using UnityEngine;
 public class doSpawnCostumer : MonoBehaviour
 {
     [SerializeField] private GameObject custumerPrefab;
+    [SerializeField] private GameObject cupPrefab;
     [SerializeField] private GameObject Barista;
                      private barista baristaScript;
     [SerializeField] private float spawnRate;
