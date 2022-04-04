@@ -49,7 +49,7 @@ public class bossSpawnCondition : MonoBehaviour
 
     IEnumerator Counter()
     {
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSecondsRealtime(1);
         count++;
             Boss();
     }

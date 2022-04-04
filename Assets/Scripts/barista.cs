@@ -48,7 +48,7 @@ public class barista : MonoBehaviour
         cupsInHand = new coffeecups[trayCapacity];
         for(int i = 0; i < trayCapacity; i++)
         {
-            cupsInHand[i] = new coffeecups(3);
+            cupsInHand[i] = new coffeecups();
             cupsInHand[i].setChosentype(3);
         }
 
@@ -98,7 +98,7 @@ public class barista : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && cupsDispensed > 0)
         {
             currentWakeLevel = maxWakeLevel;
-            Destroy(cupsInHand[--cupsDispensed]);
+            cupsInHand[--cupsDispensed].setChosentype(3);
             cupsDrank++;
             wallet -= 5;
            
@@ -127,7 +127,7 @@ public class barista : MonoBehaviour
             Sleep();
         }
 
-        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2)
+        if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 2 && cupsDispensed>0)
         {
             dropCups();
         }
@@ -242,7 +242,7 @@ public class barista : MonoBehaviour
     {
         if (cupsDrank > 0   )
         {
-            if ((Time.time) % 15 == 0)
+            if ((int)(Time.time) % 15 == 0)
             {
                 cupsDrank--;
                 timeTime++;
@@ -260,7 +260,7 @@ public class barista : MonoBehaviour
         
         if (cupsDrank > 0)
         {
-            if ((Time.time) % 15 == 0)
+            if ((int)(Time.time) % 15 == 0)
             {
                 cupsDrank -= (int)x;
                 timeTime++;
