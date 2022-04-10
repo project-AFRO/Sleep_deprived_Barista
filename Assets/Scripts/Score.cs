@@ -27,8 +27,6 @@ public class Score : MonoBehaviour
     public void AddCostumerServed()
     {
         costumersServed++;
-
-
     }
     public void AddCostumerNotServed()
     {

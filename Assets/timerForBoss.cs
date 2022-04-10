@@ -26,7 +26,7 @@ public class timerForBoss : MonoBehaviour
         
         Debug.Log(timer.ToString());
         
-        if (timer > 10)
+        if (timer > 25)
         {
             strikes++;
             timer = 0;

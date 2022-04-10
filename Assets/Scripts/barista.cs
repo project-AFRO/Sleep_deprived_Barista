@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class barista : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class barista : MonoBehaviour
     [SerializeField] private bool isPlayerChoosenSleeping;
     [SerializeField] private int choosenSleepFactor;
     [SerializeField] public Score playerscore;
+    [SerializeField] private bool isPaused;
+
+    [SerializeField]killSelfWhenNotServed killSelfWhenNotServed;
+
+    [SerializeField]private TextMeshProUGUI tips;
 
     [SerializeField] private int costumersServed;
 
@@ -25,6 +31,14 @@ public class barista : MonoBehaviour
     [SerializeField] private GameObject doorSpawner;
     [SerializeField] private doSpawnCostumer spawnCostumerScript;
     [SerializeField] private WakemeterSliderControl wakeSliderUi;
+
+    public AudioSource drop;
+    public AudioSource drink;
+    public AudioSource snore;
+    public AudioClip drp;
+    public AudioClip drk;
+    public AudioClip snr;
+
 
     private dispensers dispenser;
 
@@ -36,10 +50,16 @@ public class barista : MonoBehaviour
 
     private float timeTime;
     [SerializeField] private byte trayCapacity;
+    string x;
 
     // Start is called before the first frame update
     void Start()
     {
+        isPaused = false;
+        drop.clip = drp;
+        drink.clip = drk;
+        snore.clip = snr;
+
         gameOver = false;
         
         rb = gameObject.GetComponent<Rigidbody>();
@@ -76,15 +96,20 @@ public class barista : MonoBehaviour
         moveSpeed = 2000f;
 
         playerscore = new Score();
+        x = ("tips" + wallet.ToString());
         
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (gameOver) 
             return;
-        
+        x = '$'+wallet.ToString();
+        tips.text = x;
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             foreach(coffeecups cup in cupsInHand)
@@ -105,6 +130,7 @@ public class barista : MonoBehaviour
             wallet -= 5.0f;
             cupsDrank++;
             currentWakeLevel = maxWakeLevel;
+            drink.Play();
             //currentWake = AddTillMaxWake();
            
         }
@@ -114,7 +140,7 @@ public class barista : MonoBehaviour
             cupsInHand[--cupsDispensed].setChosentype(3);
             cupsDrank++;
             wallet -= cupsInHand[cupsDispensed].getPrice()*2/4;
-           
+            drink.Play();
         }
 
         if (!isSleeping && !isForcedSleeping)
@@ -124,31 +150,53 @@ public class barista : MonoBehaviour
         {
             isPlayerChoosenSleeping = true;
             Sleep();
+            snore.Play();
         }
         else if (Input.GetKeyDown(KeyCode.Z) && isPlayerChoosenSleeping && isSleeping)
         {
             isPlayerChoosenSleeping = false;
             isSleeping = false;
+            snore.Stop();
         }
-        if (currentWakeLevel <= 0)
+        if (currentWakeLevel <= 0 && !isSleeping)
         {
             isForcedSleeping = true;
             Sleep();
+            snore.Play();
         }
         if (isSleeping)
         {
             Sleep();
+            
         }
 
         if (Random.Range(0 , maxWakeLevel) / currentWakeLevel >= 8 && cupsDispensed>0 && !isSleeping)
         {
             dropCups();
+            drop.Play();
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
+        {
+            isPaused = true;
+            pause();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
+        {
+            isPaused = false;
+            pause();
+        }
+
+        if (costumersServed % 10 == 0 && killSelfWhenNotServed.costumersNotServered > 0)
+        {
+            killSelfWhenNotServed.costumersNotServered--;
+        }
 
         playerscore.wallet = wallet;
         playerscore.timeSpent = timeTime;
         playerscore.costumersServed = costumersServed;
+        playerscore.costumersNotServed = killSelfWhenNotServed.costumersNotServered;
 
     }
     private void OnTriggerEnter(Collider other)
@@ -178,15 +226,16 @@ public class barista : MonoBehaviour
         {
             foreach(coffeecups coffee in cupsInHand) {
                 if(collision.gameObject.GetComponent<costumer>().getCoffeeTypeRequested() == coffee.getChosentype()) 
-                { 
-                    cupsDispensed--;
+                {
                     Destroy(collision.gameObject);
+                    cupsDispensed--;
                     coffee.setprice(coffee.getChosentype());
                     wallet += coffee.getPrice();
                     coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
                     sortHand();
                     costumersServed++;
+                    break;
                 }
                 
                 
@@ -216,6 +265,7 @@ public class barista : MonoBehaviour
 
     private void Sleep()
     {
+       
         if (currentWakeLevel < maxWakeLevel && isForcedSleeping)
         {
             isSleeping = true;
@@ -238,6 +288,7 @@ public class barista : MonoBehaviour
             isSleeping = false;
             isForcedSleeping = false;
             isPlayerChoosenSleeping = false;
+            snore.Stop();
         }
 
         //Debug.Log(currentWakeLevel);
@@ -248,8 +299,8 @@ public class barista : MonoBehaviour
         //multiply by negative 1 to move in opposite direction
         if (!isSleeping)
         {
-            xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-            zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+            xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed *( 1+(currentWakeLevel/maxWakeLevel));
+            zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed*(1 + (currentWakeLevel / maxWakeLevel));
         }
         else
         {
@@ -307,23 +358,24 @@ public class barista : MonoBehaviour
 
     private void sortHand()
     {
-        coffeecups previousCup = cupsInHand[0];
         coffeecups temp = null;
-        for (int i=1; i < trayCapacity; i++)
+        for (int i=0; i < trayCapacity-1; i++)
         {
-            if (cupsInHand[i].getChosentype() < previousCup.getChosentype())
+            if (cupsInHand[i].getChosentype() == 3 && cupsInHand[i+1].getChosentype() != 3)
             {
-                Debug.Log("temp");
-                temp = previousCup;
-                cupsInHand[i - 1] = cupsInHand[i];
-                cupsInHand[i] = temp;
-                previousCup = cupsInHand[i];
-
+                cupsInHand[i].setChosentype(cupsInHand[i + 1].getChosentype()); 
+                cupsInHand[i + 1].setChosentype(3);
+                temp = cupsInHand[i];
+                Debug.Log("moved hand 1");
             }
         }
         if (temp != null)
         {
             sortHand();
+        }
+        else
+        {
+            Debug.Log("sorted");
         }
     }
 
@@ -355,6 +407,19 @@ public class barista : MonoBehaviour
     public float getWallet()
     {
         return wallet;
+    }
+
+    public void pause()
+    {
+        if (isPaused) 
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        
     }
 }
 

@@ -13,10 +13,15 @@ public class doSpawnCostumer : MonoBehaviour
     [SerializeField] private float roundDelay;
     [SerializeField] private static int numOfCostumers;
     [SerializeField] private int roundCount;
+    [SerializeField] private AudioClip doorChime;
+    [SerializeField] private AudioSource SpawnSoundSource;
+
+
     // Start is called before the first frame update
    
     void Start()
     {
+        SpawnSoundSource.clip = doorChime;
         numOfCostumers = 0;
         spawnDelay = 1.5f;
         spawnRate = 2.5f;
@@ -35,6 +40,7 @@ public class doSpawnCostumer : MonoBehaviour
         numOfCostumers++;
         roundCount++;
         Debug.Log("spawned");
+        
     }
 
     [System.Obsolete]
@@ -44,6 +50,7 @@ public class doSpawnCostumer : MonoBehaviour
         {
             if (numOfCostumers <= baristaScript.getCupsDrank() *roundCount* 3)
             {
+                SpawnSoundSource.Play();
                 for (int i = 0; i <= Random.RandomRange(baristaScript.getCupsDrank()*roundCount, (baristaScript.getCupsDrank() + 1) *roundCount* spawnRate); i++)
                 {
                     yield return new WaitForSeconds(spawnDelay);
