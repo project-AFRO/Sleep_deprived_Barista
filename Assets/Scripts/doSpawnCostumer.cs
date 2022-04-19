@@ -36,7 +36,7 @@ public class doSpawnCostumer : MonoBehaviour
     {
         // new position 
         Vector3 spawnPosition = new Vector3(transform.position.x, 1, transform.position.z);
-        GameObject custumer = Instantiate(custumerPrefab, transform.position, transform.rotation) as GameObject;
+        GameObject custumer = Instantiate(custumerPrefab, transform.position, transform.rotation);
         numOfCostumers++;
         roundCount++;
         Debug.Log("spawned");
@@ -48,8 +48,8 @@ public class doSpawnCostumer : MonoBehaviour
     {
         while (true)
         {
-            if (numOfCostumers <= baristaScript.getCupsDrank() *roundCount* 3)
-            {
+            if (numOfCostumers <= baristaScript.getCupsDrank() * roundCount * 3)
+             {
                 SpawnSoundSource.Play();
                 for (int i = 0; i <= Random.RandomRange(baristaScript.getCupsDrank()*roundCount, (baristaScript.getCupsDrank() + 1) *roundCount* spawnRate); i++)
                 {

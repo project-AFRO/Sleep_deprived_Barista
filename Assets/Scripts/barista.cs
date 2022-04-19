@@ -19,7 +19,7 @@ public class barista : MonoBehaviour
     [SerializeField] private int choosenSleepFactor;
     [SerializeField] public Score playerscore;
     [SerializeField] private bool isPaused;
-
+    [SerializeField] private costumer costumersGameObj;
     [SerializeField]killSelfWhenNotServed killSelfWhenNotServed;
 
     [SerializeField]private TextMeshProUGUI tips;
@@ -39,6 +39,7 @@ public class barista : MonoBehaviour
     public AudioClip drk;
     public AudioClip snr;
 
+    [SerializeField] GameObject pauseMenu;
 
     private dispensers dispenser;
 
@@ -61,7 +62,9 @@ public class barista : MonoBehaviour
         snore.clip = snr;
 
         gameOver = false;
-        
+
+        pauseMenu.GetComponent<Puasemenu>().Resume();
+
         rb = gameObject.GetComponent<Rigidbody>();
 
         wallet = 0;
@@ -93,7 +96,7 @@ public class barista : MonoBehaviour
 
         costumersServed = 0;
 
-        moveSpeed = 2000f;
+        moveSpeed = 1000f;
 
         playerscore = new Score();
         x = ("tips" + wallet.ToString());
@@ -136,10 +139,10 @@ public class barista : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && cupsDispensed > 0)
         {
+            wallet -= cupsInHand[--cupsDispensed].getPrice() * 2 / 4;
             currentWakeLevel = maxWakeLevel;
-            cupsInHand[--cupsDispensed].setChosentype(3);
+            cupsInHand[cupsDispensed].setChosentype(3);
             cupsDrank++;
-            wallet -= cupsInHand[cupsDispensed].getPrice()*2/4;
             drink.Play();
         }
 
@@ -180,18 +183,17 @@ public class barista : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
             isPaused = true;
+            pauseMenu.GetComponent<Puasemenu>().Pause();
             pause();
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {
             isPaused = false;
+            pauseMenu.GetComponent<Puasemenu>().Resume();
             pause();
         }
 
-        if (costumersServed % 10 == 0 && killSelfWhenNotServed.costumersNotServered > 0)
-        {
-            killSelfWhenNotServed.costumersNotServered--;
-        }
+        
 
         playerscore.wallet = wallet;
         playerscore.timeSpent = timeTime;
@@ -224,9 +226,11 @@ public class barista : MonoBehaviour
     {
         if (collision.gameObject.tag == "costumer" && cupsDispensed > 0)
         {
+            bool deletedCup = false;
             foreach(coffeecups coffee in cupsInHand) {
-                if(collision.gameObject.GetComponent<costumer>().getCoffeeTypeRequested() == coffee.getChosentype()) 
+                if(collision.gameObject.GetComponent<costumer>().getCoffeeTypeRequested() == coffee.getChosentype() && !deletedCup ) 
                 {
+                    killSelfWhenNotServed = collision.gameObject.GetComponent<killSelfWhenNotServed>();
                     Destroy(collision.gameObject);
                     cupsDispensed--;
                     coffee.setprice(coffee.getChosentype());
@@ -234,7 +238,12 @@ public class barista : MonoBehaviour
                     coffee.setChosentype(3);
                     spawnCostumerScript.setNumOfCostumers(spawnCostumerScript.getNumOfCostumers() - 1);
                     sortHand();
+                    deletedCup = true;
                     costumersServed++;
+                    if (costumersServed % 10 == 0 && killSelfWhenNotServed.costumersNotServered > 0)
+                    {
+                        killSelfWhenNotServed.costumersNotServered--;
+                    }
                     break;
                 }
                 
@@ -290,6 +299,7 @@ public class barista : MonoBehaviour
             isPlayerChoosenSleeping = false;
             snore.Stop();
         }
+        wakeSliderUi.sliderControl();
 
         //Debug.Log(currentWakeLevel);
         //Debug.Log("sleeping? " + isSleeping);
@@ -300,7 +310,7 @@ public class barista : MonoBehaviour
         if (!isSleeping)
         {
             xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed *( 1+(currentWakeLevel/maxWakeLevel));
-            zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed*(1 + (currentWakeLevel / maxWakeLevel));
+            zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed * (1 + (currentWakeLevel / maxWakeLevel));
         }
         else
         {
@@ -313,7 +323,7 @@ public class barista : MonoBehaviour
     
     private void cupsDrankReduction()
     {
-        if (cupsDrank > 0   )
+        if (cupsDrank > 0)
         {
             if ((int)(Time.time) % 15 == 0)
             {

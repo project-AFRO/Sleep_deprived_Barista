@@ -487,19 +487,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb74e4bfe0863314896f3fbeafbf5808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  rb: {fileID: 0}
-  maxWakeLevel: 0
+  moveSpeed: 1000
+  rb: {fileID: 7946198002746977573}
+  maxWakeLevel: 500
   isForcedSleeping: 0
   wallet: 0
   cupsDrank: 0
   cupsDispensed: 0
-  currentWakeLevel: 0
+  currentWakeLevel: 500
   canDispense: 0
   isSleeping: 0
   isPlayerChoosenSleeping: 0
   choosenSleepFactor: 0
   playerscore: {fileID: 0}
+  isPaused: 0
+  costumersGameObj: {fileID: 74660442325606191, guid: 8746facd3689155469b2a4f5441361f1, type: 3}
+  killSelfWhenNotServed: {fileID: 0}
   tips: {fileID: 0}
   costumersServed: 0
   gameOver: 0
@@ -512,6 +515,7 @@ MonoBehaviour:
   drp: {fileID: 8300000, guid: b6f01d770b21ca94a9f5d48d2892314e, type: 3}
   drk: {fileID: 8300000, guid: 54e483cc7974e0a4b82353cc8a8b1ecb, type: 3}
   snr: {fileID: 8300000, guid: ad351fc8e1bb3d144af1b0f903769f5b, type: 3}
+  pauseMenu: {fileID: 0}
   coffeeType: 0
   cupsInHand: []
   trayCapacity: 0
@@ -560,6 +564,9 @@ MonoBehaviour:
   barista: {fileID: 7946198002746977574}
   max_strikes: 3
   strikes: 0
+  strikeUI: {fileID: 0}
+  boss: {fileID: 0}
+  door: {fileID: 0}
 --- !u!1001 &6878863566037429489
 PrefabInstance:
   m_ObjectHideFlags: 0

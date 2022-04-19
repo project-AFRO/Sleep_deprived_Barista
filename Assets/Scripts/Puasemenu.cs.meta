@@ -1,13 +1,9 @@
 fileFormatVersion: 2
-guid: fbe31c72cb02c62418969104c2d1a791
+guid: a44cafa2623f6a845ac29eacbb3cf4b9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - barista: {instanceID: 0}
-  - strikeUI: {instanceID: 0}
-  - boss: {instanceID: 0}
-  - door: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

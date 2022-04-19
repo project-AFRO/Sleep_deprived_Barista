@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4704470513139896994}
   - component: {fileID: 4812049332960997985}
   - component: {fileID: 8076721400693722672}
-  - component: {fileID: 3077159790062711563}
   - component: {fileID: 6216946196331774164}
   m_Layer: 0
   m_Name: cups
@@ -28,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6762135372519413163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.06, y: 1.91293, z: -0.33}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 12.06, y: 1.9013, z: -0.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,20 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3077159790062711563
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6762135372519413163}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &6216946196331774164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc1e0ae7fda3dd4182ab208d10a96bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chosenType: 0
   latte: {fileID: 2100000, guid: b4c720091dc8b764da76467f1ed392fd, type: 2}
   black: {fileID: 2100000, guid: 05b3758cde96b8f42a61cd83c76c0e8a, type: 2}
   esspresso: {fileID: 2100000, guid: e9f223cd1b6317a43b66855e809e35ad, type: 2}

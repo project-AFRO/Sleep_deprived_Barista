@@ -56,7 +56,10 @@ public class endgame : MonoBehaviour
     }
     public void HighscoreWrite()
     {
-        if(score.costumersServed > PlayerHighscore.costumersServed)
+        HighscoreRead();
+        highscoreWrite = new FileStream("highscore.txt", FileMode.Truncate);
+        highscoreWrite = new FileStream("highscore.txt", FileMode.Append);
+        if (score.costumersServed > PlayerHighscore.costumersServed)
         {
             PlayerHighscore.costumersServed = score.costumersServed;
             isNew = true;

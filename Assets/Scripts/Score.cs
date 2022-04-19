@@ -24,12 +24,5 @@ public class Score : MonoBehaviour
     {
         wallet = barista.GetComponent<barista>().getWallet();
     }
-    public void AddCostumerServed()
-    {
-        costumersServed++;
-    }
-    public void AddCostumerNotServed()
-    {
-        costumersNotServed++;
-    }
+
 }

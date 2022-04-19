@@ -31,10 +31,12 @@ public class WakemeterSliderControl : MonoBehaviour
         {
             
             canvasOverveiw.color = new Color32(0, 0, 0, (byte)(150 - barista.GetComponent<barista>().getCurrentWakeLevel() / 4));
-        }
-        else
-        { 
+        } else if(barista.GetComponent<barista>().getSleepState())
+        {
             canvasOverveiw.color = new Color32(0, 0, 0, 150);
-        }
+        } else if (barista.GetComponent<barista>().gameOver)
+        { 
+            canvasOverveiw.color = new Color32(0, 0, 0, 0);
+        } 
     }
 }

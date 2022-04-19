@@ -14,7 +14,7 @@ public class killSelfWhenNotServed : MonoBehaviour
     public int time_to_leave;
     public doSpawnCostumer costumerScript;
     public GameObject door;
-    public int costumersNotServered;
+    public static int costumersNotServered;
     [SerializeReference] int rnd;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class killSelfWhenNotServed : MonoBehaviour
         angryhigh.clip = angyHi;
         costumerScript = door.GetComponent<doSpawnCostumer>();
         costumersNotServered = 0;
-        time_to_leave = Random.Range(30, 70);
+        time_to_leave = Random.Range(40, 90);
     }
     
     // Update is called once per frame
